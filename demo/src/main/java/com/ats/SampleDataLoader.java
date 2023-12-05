@@ -3,15 +3,20 @@ package com.ats;
 import com.ats.account.Account;
 import com.ats.account.AccountRepository;
 import com.ats.account.AccountRole;
+import com.ats.offer.Offer;
+import com.ats.offer.OfferRepository;
+import com.ats.offer.OfferStratus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 @Component
 @RequiredArgsConstructor
 public class SampleDataLoader implements CommandLineRunner {
-        private final AccountRepository accountRepository;
-
+    private final AccountRepository accountRepository;
+    private final OfferRepository offerRepository;
 
 
     @Override
@@ -32,11 +37,15 @@ public class SampleDataLoader implements CommandLineRunner {
         );
         accountRepository.save(secAccount);
 
-
-
-
+        Offer offer = new Offer(
+                secAccount,
+                "Junior Java Developer",
+                LocalDateTime.now(),
+                LocalDateTime.now().plusDays(50),
+                OfferStratus.GOING
+        );
+        offer.setMonthSalary(7000);
+        offer.setDescription("HTML, SpringBoot and CSS required");
+        offerRepository.save(offer);
     }
-
-
-
 }
