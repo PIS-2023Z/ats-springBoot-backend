@@ -1,8 +1,8 @@
-package com.example.demo;
+package com.ats;
 
-import com.example.demo.account.Account;
-import com.example.demo.account.AccountRepository;
-import com.example.demo.account.AccountRole;
+import com.ats.account.Account;
+import com.ats.account.AccountRepository;
+import com.ats.account.AccountRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -23,6 +23,16 @@ public class SampleDataLoader implements CommandLineRunner {
             AccountRole.EMPLOYEE
         );
         accountRepository.save(account);
+
+        Account secAccount = new Account(
+                "ats-employer@gmail.com",
+                "samplePassword",
+                "+48777444555",
+                AccountRole.EMPLOYER
+        );
+        accountRepository.save(secAccount);
     }
+
+
 
 }

@@ -1,4 +1,4 @@
-package com.example.demo.account;
+package com.ats.account;
 
 public enum AccountRole {
     ADMIN,

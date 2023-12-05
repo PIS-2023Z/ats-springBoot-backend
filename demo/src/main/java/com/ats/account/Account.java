@@ -1,4 +1,4 @@
-package com.example.demo.account;
+package com.ats.account;
 
 
 import jakarta.persistence.*;
@@ -7,7 +7,6 @@ import lombok.*;
 @Entity
 @Table
 @NoArgsConstructor
-@Builder
 @Getter
 @Setter
 @AllArgsConstructor

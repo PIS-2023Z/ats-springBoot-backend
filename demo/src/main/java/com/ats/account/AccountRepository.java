@@ -1,4 +1,4 @@
-package com.example.demo.account;
+package com.ats.account;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
