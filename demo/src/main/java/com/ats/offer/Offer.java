@@ -1,21 +1,18 @@
 package com.ats.offer;
 
 import com.ats.account.Account;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table
 @NoArgsConstructor
-@Getter
-@Setter
 @AllArgsConstructor
+@Data
 public class Offer {
 
     @Id
@@ -31,23 +28,24 @@ public class Offer {
     private String name;
 
     @Column(nullable = false)
-    private LocalDateTime publishedDate;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    private LocalDateTime publishedAt;
     @Column(nullable = false)
-    private LocalDateTime expirationDate;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    private LocalDateTime expiresAt;
     @Column(nullable = false)
-    private OfferStratus offerStratus;
+    private OfferStratus status;
 
-    private int monthSalary;
+    private int monthlySalary = 0;
 
     @Column(columnDefinition = "TEXT")
     private String description;
 
-
-    public Offer(Account account, String name, LocalDateTime publishedDate, LocalDateTime expirationDate, OfferStratus offerStratus) {
+    public Offer(Account account, String name, LocalDateTime publishedAt, LocalDateTime expiresAt, OfferStratus status) {
         this.account = account;
-        this.publishedDate = publishedDate;
-        this.expirationDate = expirationDate;
-        this.offerStratus = offerStratus;
+        this.publishedAt = publishedAt;
+        this.expiresAt = expiresAt;
+        this.status = status;
         this.name = name;
     }
 }

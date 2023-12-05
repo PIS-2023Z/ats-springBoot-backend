@@ -44,7 +44,7 @@ public class SampleDataLoader implements CommandLineRunner {
                 LocalDateTime.now().plusDays(50),
                 OfferStratus.GOING
         );
-        offer.setMonthSalary(7000);
+        offer.setMonthlySalary(7000);
         offer.setDescription("HTML, SpringBoot and CSS required");
         offerRepository.save(offer);
     }
