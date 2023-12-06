@@ -1,13 +1,14 @@
 package com.ats.offer;
 
-import com.ats.account.Account;
 import com.ats.account.AccountService;
+import com.ats.account.Account;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -62,5 +63,17 @@ public class OfferService {
         oldOffer.setStatus(offerToUpdate.getStatus());
         offerRepository.save(oldOffer);
         return offerToUpdate;
+    }
+
+    @Transactional
+    public void updateStatusById(Long id, OfferStatus status) {
+        //TODO authorize
+        Offer offer = offerRepository.findById(id).orElseThrow();
+        offer.setStatus(status);
+        offerRepository.save(offer);
+    }
+
+    public List<Offer> getAll() {
+        return offerRepository.findAll();
     }
 }

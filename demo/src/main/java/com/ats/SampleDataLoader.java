@@ -5,7 +5,7 @@ import com.ats.account.AccountRepository;
 import com.ats.account.AccountRole;
 import com.ats.offer.Offer;
 import com.ats.offer.OfferRepository;
-import com.ats.offer.OfferStratus;
+import com.ats.offer.OfferStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -42,7 +42,7 @@ public class SampleDataLoader implements CommandLineRunner {
                 "Junior Java Developer",
                 LocalDateTime.now(),
                 LocalDateTime.now().plusDays(50),
-                OfferStratus.GOING
+                OfferStatus.GOING
         );
         offer.setMonthlySalary(7000);
         offer.setDescription("HTML, SpringBoot and CSS required");

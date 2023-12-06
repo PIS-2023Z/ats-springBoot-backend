@@ -1,6 +1,6 @@
 package com.ats.offer;
 
-public enum OfferStratus {
+public enum OfferStatus {
     GOING,
     EXPIRED,
     CLOSED

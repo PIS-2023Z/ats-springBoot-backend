@@ -34,14 +34,14 @@ public class Offer {
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     private LocalDateTime expiresAt;
     @Column(nullable = false)
-    private OfferStratus status;
+    private OfferStatus status;
 
     private int monthlySalary = 0;
 
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    public Offer(Account account, String name, LocalDateTime publishedAt, LocalDateTime expiresAt, OfferStratus status) {
+    public Offer(Account account, String name, LocalDateTime publishedAt, LocalDateTime expiresAt, OfferStatus status) {
         this.account = account;
         this.publishedAt = publishedAt;
         this.expiresAt = expiresAt;
