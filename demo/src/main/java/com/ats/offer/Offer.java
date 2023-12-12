@@ -20,7 +20,7 @@ public class Offer {
     private Long id;
 
     @JsonIgnore
-    @OneToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(referencedColumnName = "id")
     private Account account;
 
