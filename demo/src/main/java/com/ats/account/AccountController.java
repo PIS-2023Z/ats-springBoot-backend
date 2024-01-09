@@ -23,7 +23,9 @@ public class AccountController {
                 "piotr.kow.59@gmail.com",
                 25,
                 MailType.REGISTER,
-                "token"
+                "token",
+                "Piotr",
+                "Welcome to ATS"
         );
         kafkaTemplate.send("mail", mail);
     }

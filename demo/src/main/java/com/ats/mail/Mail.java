@@ -16,4 +16,8 @@ public class Mail implements Serializable {
     private MailType mailType;
 
     private String url;
+
+    private String name;
+
+    private String topic;
 }
