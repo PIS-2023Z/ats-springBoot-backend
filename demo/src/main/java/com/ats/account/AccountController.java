@@ -1,6 +1,8 @@
 package com.ats.account;
 
 
+import com.ats.mail.Mail;
+import com.ats.mail.MailType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +19,13 @@ public class AccountController {
     //only for kafka testing
     @PostMapping("kafka-test")
     public void sendExample() {
-        kafkaTemplate.send("mail", "sent from endpoint");
+        Mail mail = new Mail(
+                "piotr.kow.59@gmail.com",
+                25,
+                MailType.REGISTER,
+                "token"
+        );
+        kafkaTemplate.send("mail", mail);
     }
 
 }
