@@ -1,4 +1,4 @@
-package com.ats.configuration;
+package com.ats.configuration.kafka;
 
 import com.ats.mail.Mail;
 import com.ats.mail.MailSerializer;

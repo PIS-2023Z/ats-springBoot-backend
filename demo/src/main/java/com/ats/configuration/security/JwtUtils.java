@@ -1,5 +1,6 @@
-package com.ats.configuration;
+package com.ats.configuration.security;
 
+import com.ats.account.Account;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -29,6 +30,12 @@ public class JwtUtils {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
+    public String extractUsernameFromHeader(String header) {
+        String jwtToken = header.substring(7);
+        String username = extractUsername(jwtToken);
+        return username;
+    }
+
     private Claims extractAllClaims(String token) {
         return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
     }
@@ -37,16 +44,16 @@ public class JwtUtils {
         return extractExpiration(token).before(new Date());
     }
 
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(Account account) {
         Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, userDetails);
+        return createToken(claims, account);
     }
 
-    private String createToken(Map<String, Object> claims, UserDetails userDetails) {
+    private String createToken(Map<String, Object> claims, Account account) {
 
         return Jwts.builder().setClaims(claims)
-                .setSubject(userDetails.getUsername())
-                .claim("authorities", userDetails.getAuthorities())
+                .setSubject(account.getEmail())
+                .claim("authorities", account.getAuthorities())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + TimeUnit.HOURS.toMillis(24)))
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();

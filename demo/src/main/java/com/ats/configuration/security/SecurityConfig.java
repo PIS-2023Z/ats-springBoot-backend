@@ -1,4 +1,4 @@
-package com.ats.configuration;
+package com.ats.configuration.security;
 
 import com.ats.account.AccountRepository;
 import jakarta.servlet.Filter;
@@ -38,8 +38,6 @@ public class SecurityConfig {
     public void setAccountRepository(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
     }
-
-
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
