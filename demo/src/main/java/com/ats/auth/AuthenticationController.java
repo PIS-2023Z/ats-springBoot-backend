@@ -27,5 +27,13 @@ public class AuthenticationController {
         return authenticateService.authenticate(request);
     }
 
+    @PostMapping("create")
+    public ResponseEntity create(
+            @RequestBody Account account
+    ) {
+        return authenticateService.create(account);
+    }
+
+
 
 }
