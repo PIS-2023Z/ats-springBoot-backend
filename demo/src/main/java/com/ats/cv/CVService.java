@@ -23,6 +23,7 @@ public class CVService {
         CV cv = new CV();
         cv.setData(new Binary(BsonBinarySubType.BINARY, file.getBytes()));
         cv = cvRepo.insert(cv);
+        System.out.println(getAll());
         return ResponseEntity.ok().body(cv.getId());
     }
 
@@ -34,6 +35,18 @@ public class CVService {
             return ResponseEntity.badRequest().headers(headers).body(null);
         }
         CV cv = optionalCV.get();
+        return ResponseEntity.ok().contentType(MediaType.APPLICATION_PDF).body(cv);
+    }
+
+    public ResponseEntity<CV> getCVText(String id) {
+        Optional<CV> optionalCV = cvRepo.findById(id);
+        if (optionalCV.isEmpty()) {
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("response", "CV not found");
+            return ResponseEntity.badRequest().headers(headers).body(null);
+        }
+        CV cv = optionalCV.get();
+        System.out.println(cv.getData());
         return ResponseEntity.ok().contentType(MediaType.APPLICATION_PDF).body(cv);
     }
 

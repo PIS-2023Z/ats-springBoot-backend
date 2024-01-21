@@ -2,7 +2,6 @@ package com.ats.cv;
 
 import java.io.IOException;
 import java.util.List;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,6 +19,11 @@ public class CVController {
     @GetMapping("/files/{id}")
     public ResponseEntity<CV> getCV(@PathVariable("id") String id) {
         return cvService.getCV(id);
+    }
+
+    @GetMapping("/files/text/{id}")
+    public ResponseEntity<CV> getCVText(@PathVariable("id") String id) {
+        return cvService.getCVText(id);
     }
 
     @GetMapping("/files")
