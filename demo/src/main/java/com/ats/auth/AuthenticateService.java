@@ -58,7 +58,7 @@ public class AuthenticateService {
             return ResponseEntity.badRequest().headers(headers).body(null);
         }
         Optional<Account> optionalAccountEmail = accountRepository.findByEmail(account.getEmail());
-        if(optionalAccountEmail.isEmpty()) {
+        if(optionalAccountEmail.isPresent()) {
             HttpHeaders headers = Globals.setHeader("Username taken");
             return ResponseEntity.badRequest().headers(headers).body(null);
         }
@@ -87,7 +87,12 @@ public class AuthenticateService {
                 "User",
                 "Welcome to PIS-ATS"
         );
-        kafkaTemplate.send("mail", mail);
+        try {
+            kafkaTemplate.send("mail", mail);
+        } catch (Exception e) {
+            HttpHeaders headers = Globals.setHeader("Error while sending email");
+            return ResponseEntity.ok().headers(headers).body(account);
+        }
         return ResponseEntity.ok(newAccount);
     }
 }

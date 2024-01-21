@@ -63,7 +63,7 @@ public class Chain {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .requestMatchers("api/auth/authenticate", "api/auth/register")
+                .requestMatchers("api/auth/authenticate", "api/auth/create")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
