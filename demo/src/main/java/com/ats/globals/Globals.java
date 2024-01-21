@@ -20,6 +20,11 @@ public class Globals {
 
     public static final String PRODUCTION_ENABLE_URL = "http://...";
 
+    public static HttpHeaders setAuthToken(String token) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Bearer " + token);
+        return headers;
+    }
     public static HttpHeaders setHeader(String message) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("message", message);
