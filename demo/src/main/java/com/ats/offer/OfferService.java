@@ -4,6 +4,7 @@ import com.ats.account.AccountService;
 import com.ats.account.Account;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -75,5 +76,14 @@ public class OfferService {
 
     public List<Offer> getAll() {
         return offerRepository.findAll();
+    }
+
+    public ResponseEntity<List<Offer>> getEmployers(String authorizationHeader) {
+        Account account = accountService.getAccountFromToken(authorizationHeader);
+        return ResponseEntity.ok().body(account.getOffers());
+    }
+
+    public ResponseEntity<List<Offer>> getByFraze(String fraze) {
+        return ResponseEntity.ok(offerRepository.findByFraze(fraze.toLowerCase()));
     }
 }

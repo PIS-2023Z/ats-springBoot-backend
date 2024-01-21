@@ -25,8 +25,11 @@ public class Application {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", length = 50, nullable = false)
-    private String name;
+    @Column(name = "salary")
+    private int salary;
+
+    @Column(name = "hours")
+    private int hours;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
@@ -40,6 +43,7 @@ public class Application {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Offer offer;
 
+    @JsonIgnore
     private String cvId;
 
 }
