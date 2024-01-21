@@ -1,12 +1,16 @@
 package com.ats.offer;
 
 import com.ats.account.Account;
+import com.ats.application.Application;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table
@@ -40,6 +44,10 @@ public class Offer {
 
     @Column(columnDefinition = "TEXT")
     private String description;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "offer")
+    private List<Application> applications;
 
     public Offer(Account account, String name, LocalDateTime publishedAt, LocalDateTime expiresAt, OfferStatus status) {
         this.account = account;

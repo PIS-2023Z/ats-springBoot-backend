@@ -1,12 +1,16 @@
 package com.ats.account;
 
 
+import com.ats.application.Application;
+import com.ats.offer.Offer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table
@@ -29,6 +33,14 @@ public class Account implements UserDetails {
     private boolean enabled = true;
     @Column(name = "account_role", nullable = false)
     private AccountRole accountRole;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "account")
+    private List<Application> applications;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "account")
+    private List<Offer> offers;
 
     public Account(String email, String password, String phone, AccountRole accountRole) {
         this.email = email;
