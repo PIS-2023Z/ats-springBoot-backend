@@ -1,6 +1,7 @@
 package com.ats.offer;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,15 +14,27 @@ import java.util.List;
 public class OfferController {
     private final OfferService offerService;
 
+
+    @GetMapping("get-by-fraze")
+    public ResponseEntity<List<Offer>> getByFraze(@RequestParam("word") String fraze) {
+        return offerService.getByFraze(fraze);
+    }
+
+    @GetMapping("get-applied-for")
+    public ResponseEntity<List<Offer>> getAccounts(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader) {
+        return offerService.getAccounts(authorizationHeader);
+    }
+
+    @GetMapping("get-employers")
+    public ResponseEntity<List<Offer>> getEmployers(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader) {
+        return offerService.getEmployers(authorizationHeader);
+    }
     @GetMapping("all")
     public ResponseEntity<List<Offer>> all() {
         return ResponseEntity.ok().body(offerService.getAll());
     }
 
     @PostMapping("add")
-    /**
-     * Requires only daysActive and name, description and monthSalary are optional
-    */
     public ResponseEntity<Offer> add(@RequestBody Offer newOffer) {
         Offer responseOffer;
         try {

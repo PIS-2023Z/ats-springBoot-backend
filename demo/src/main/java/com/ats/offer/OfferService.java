@@ -2,12 +2,15 @@ package com.ats.offer;
 
 import com.ats.account.AccountService;
 import com.ats.account.Account;
+import com.ats.application.Application;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -75,5 +78,24 @@ public class OfferService {
 
     public List<Offer> getAll() {
         return offerRepository.findAll();
+    }
+
+    public ResponseEntity<List<Offer>> getEmployers(String authorizationHeader) {
+        Account account = accountService.getAccountFromToken(authorizationHeader);
+        return ResponseEntity.ok().body(account.getOffers());
+    }
+
+    public ResponseEntity<List<Offer>> getByFraze(String fraze) {
+        return ResponseEntity.ok(offerRepository.findByFraze(fraze.toLowerCase()));
+    }
+
+    public ResponseEntity<List<Offer>> getAccounts(String authorizationHeader) {
+        Account account = accountService.getAccountFromToken(authorizationHeader);
+        List<Application> applications = account.getApplications();
+        List<Offer> offers = new ArrayList<>();
+        for (Application application: applications) {
+            offers.add(application.getOffer());
+        }
+        return ResponseEntity.ok().body(offers);
     }
 }
