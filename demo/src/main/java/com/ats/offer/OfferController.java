@@ -20,6 +20,10 @@ public class OfferController {
         return offerService.getByFraze(fraze);
     }
 
+    @GetMapping("get-applied-for")
+    public ResponseEntity<List<Offer>> getAccounts(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader) {
+        return offerService.getAccounts(authorizationHeader);
+    }
 
     @GetMapping("get-employers")
     public ResponseEntity<List<Offer>> getEmployers(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader) {
