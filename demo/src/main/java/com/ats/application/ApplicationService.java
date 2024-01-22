@@ -3,6 +3,7 @@ package com.ats.application;
 import com.ats.account.Account;
 import com.ats.account.AccountService;
 import com.ats.cv.CV;
+import com.ats.cv.CVRepository;
 import com.ats.cv.CVService;
 import com.ats.offer.Offer;
 import com.ats.offer.OfferRepository;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -70,5 +72,18 @@ public class ApplicationService {
         application.setCvId(cv.getId());
         applicationRepository.save(application);
         return application;
+    }
+
+    ResponseEntity<List<Application>> getAllApplicationsByStringInCV(String phrase) {
+        List<Application> applications = applicationRepository.findAll();
+        List<Application> resultApplications = new ArrayList<>();
+        for (Application application : applications) {
+            String cv_id = application.getCvId();
+            String text = String.valueOf(cvService.getCVText(cv_id));
+            if (text.contains(phrase)) {
+                resultApplications.add(application);
+            }
+        }
+        return ResponseEntity.ok().body(resultApplications);
     }
 }
