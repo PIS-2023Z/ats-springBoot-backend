@@ -98,4 +98,6 @@ public class OfferService {
         }
         return ResponseEntity.ok().body(offers);
     }
+
+
 }

@@ -19,12 +19,11 @@ public class CVService {
 
     private final CVRepository cvRepo;
 
-    public ResponseEntity<String> addCV(MultipartFile file) throws IOException {
+    public CV addCV(MultipartFile file) throws IOException {
         CV cv = new CV();
         cv.setData(new Binary(BsonBinarySubType.BINARY, file.getBytes()));
         cv = cvRepo.insert(cv);
-        System.out.println(getAll());
-        return ResponseEntity.ok().body(cv.getId());
+        return cv;
     }
 
     public ResponseEntity<CV> getCV(String id) {
