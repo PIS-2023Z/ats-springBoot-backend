@@ -21,7 +21,7 @@ public class OfferService {
     private final AccountService accountService;
     private final OfferRepository offerRepository;
     @Transactional
-    public Offer addOffer(Offer newOffer) {
+    public Offer addOffer(Offer newOffer, String authToken) {
         Offer offer = null;
         LocalDateTime expiresAt;
         if(newOffer.getExpiresAt().isBefore(LocalDateTime.now()) || newOffer.getName().isEmpty()) {
@@ -29,7 +29,7 @@ public class OfferService {
                     "Incorrect date or name: " + newOffer.getName() + newOffer.getExpiresAt()
             );
         }
-        Account account = accountService.findById(1L);
+        Account account = accountService.getAccountFromToken(authToken);
         offer = new Offer(
                 account,
                 newOffer.getName(),

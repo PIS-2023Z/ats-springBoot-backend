@@ -35,10 +35,13 @@ public class OfferController {
     }
 
     @PostMapping("add")
-    public ResponseEntity<Offer> add(@RequestBody Offer newOffer) {
+    public ResponseEntity<Offer> add(
+            @RequestBody Offer newOffer,
+            @RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader
+            ) {
         Offer responseOffer;
         try {
-            responseOffer = offerService.addOffer(newOffer);
+            responseOffer = offerService.addOffer(newOffer, authorizationHeader);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
