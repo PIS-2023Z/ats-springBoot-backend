@@ -16,17 +16,17 @@ public class CVController {
 
     private final CVService cvService;
 
-    @GetMapping("/files/{id}")
-    public ResponseEntity<CV> getCV(@PathVariable("id") String id) {
+    @GetMapping("/file")
+    public ResponseEntity<CV> getCV(@RequestParam String id) {
         return cvService.getCV(id);
     }
 
-    @GetMapping("/files/text/{id}")
-    public ResponseEntity<CV> getCVText(@PathVariable("id") String id) {
+    @GetMapping("/filetext")
+    public ResponseEntity<String> getCVText(@RequestParam String id) throws IOException {
         return cvService.getCVText(id);
     }
 
-    @GetMapping("/files")
+    @GetMapping("/allfiles")
     public ResponseEntity<List<CV>> getAll() {
         return cvService.getAll();
     }
