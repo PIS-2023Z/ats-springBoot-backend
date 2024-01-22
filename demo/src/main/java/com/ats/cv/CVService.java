@@ -1,6 +1,8 @@
 package com.ats.cv;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.text.PDFTextStripper;
 import org.bson.BsonBinarySubType;
 import org.bson.types.Binary;
 import org.springframework.http.HttpHeaders;
@@ -9,7 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,19 +38,24 @@ public class CVService {
             return ResponseEntity.badRequest().headers(headers).body(null);
         }
         CV cv = optionalCV.get();
-        return ResponseEntity.ok().contentType(MediaType.APPLICATION_PDF).body(cv);
+        return ResponseEntity.ok().body(cv);
     }
 
-    public ResponseEntity<CV> getCVText(String id) {
-        Optional<CV> optionalCV = cvRepo.findById(id);
-        if (optionalCV.isEmpty()) {
-            HttpHeaders headers = new HttpHeaders();
-            headers.add("response", "CV not found");
-            return ResponseEntity.badRequest().headers(headers).body(null);
+    public ResponseEntity<String> getCVText(String id) {
+        Optional<CV> cv = cvRepo.findById(id);
+        String text = "";
+        try {
+            Binary binaryData = cv.get().getData();
+            byte[] pdfBytes = binaryData.getData();
+            InputStream inputStream = new ByteArrayInputStream(pdfBytes);
+            PDDocument document = PDDocument.load(inputStream);
+            PDFTextStripper pdfTextStripper = new PDFTextStripper();
+            text = pdfTextStripper.getText(document); // text danego cv
+            document.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        CV cv = optionalCV.get();
-        System.out.println(cv.getData());
-        return ResponseEntity.ok().contentType(MediaType.APPLICATION_PDF).body(cv);
+        return ResponseEntity.ok().body(text);
     }
 
     public ResponseEntity<List<CV>> getAll() {

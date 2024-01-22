@@ -47,4 +47,10 @@ public class ApplicationController {
         }
         return ResponseEntity.ok().body(responseApplication);
     }
+
+    @GetMapping("getAppByStr/{str}")
+    public ResponseEntity<List<Application>> getAllApplicationsByStringInCV(@PathVariable("str") String str) {
+        return applicationService.getAllApplicationsByStringInCV(str);
+    }
+
 }

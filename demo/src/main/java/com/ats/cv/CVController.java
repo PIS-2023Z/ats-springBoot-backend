@@ -21,8 +21,8 @@ public class CVController {
         return cvService.getCV(id);
     }
 
-    @GetMapping("/files/text/{id}")
-    public ResponseEntity<CV> getCVText(@PathVariable("id") String id) {
+    @GetMapping("/filetext/{id}")
+    public ResponseEntity<String> getCVText(@PathVariable("id") String id) {
         return cvService.getCVText(id);
     }
 
