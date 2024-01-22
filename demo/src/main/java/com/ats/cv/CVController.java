@@ -33,6 +33,7 @@ public class CVController {
 
     @PostMapping("/upload")
     public ResponseEntity<String> uploadCV(@RequestParam("cv") MultipartFile file) throws IOException {
-        return cvService.addCV(file);
+        CV cv = cvService.addCV(file);
+        return ResponseEntity.ok().body(cv.getId());
     }
 }

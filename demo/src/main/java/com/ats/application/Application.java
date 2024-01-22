@@ -31,19 +31,15 @@ public class Application {
     @Column(name = "hours")
     private int hours;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "account_id", referencedColumnName = "id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Account account;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "offer_id", referencedColumnName = "id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Offer offer;
 
-    @JsonIgnore
     private String cvId;
-
 }
