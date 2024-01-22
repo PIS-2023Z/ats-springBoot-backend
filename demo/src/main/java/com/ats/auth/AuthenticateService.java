@@ -87,12 +87,12 @@ public class AuthenticateService {
                 "User",
                 "Welcome to PIS-ATS"
         );
-        try {
-            kafkaTemplate.send("mail", mail);
-        } catch (Exception e) {
-            HttpHeaders headers = Globals.setHeader("Error while sending email");
-            return ResponseEntity.ok().headers(headers).body(account);
-        }
+//        try {
+//            kafkaTemplate.send("mail", mail);
+//        } catch (Exception e) {
+//            HttpHeaders headers = Globals.setHeader("Error while sending email");
+//            return ResponseEntity.ok().headers(headers).body(account);
+//        }
         return ResponseEntity.ok(newAccount);
     }
 }
