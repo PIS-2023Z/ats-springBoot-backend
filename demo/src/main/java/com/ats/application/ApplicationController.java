@@ -53,4 +53,14 @@ public class ApplicationController {
         return applicationService.getAllApplicationsByStringInCV(str);
     }
 
+    @GetMapping("get-by-employer")
+    public ResponseEntity<List<Application>> getByEmployer(@RequestHeader(HttpHeaders.AUTHORIZATION) String authHeader) {
+        return applicationService.getByEmployer(authHeader);
+    }
+
+    @DeleteMapping("remove/{id}")
+    public ResponseEntity delete(@PathVariable("id") Long id) {
+        return applicationService.delete(id);
+    }
+
 }

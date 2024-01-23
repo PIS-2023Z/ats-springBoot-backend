@@ -86,4 +86,23 @@ public class ApplicationService {
         }
         return ResponseEntity.ok().body(resultApplications);
     }
+
+    public ResponseEntity<List<Application>> getByEmployer(String authHeader) {
+        Account account = accountService.getAccountFromToken(authHeader);
+        List<Application> applicationList = new ArrayList<>();
+        for (Offer offer : account.getOffers()) {
+            applicationList.addAll(offer.getApplications());
+        }
+        return ResponseEntity.ok(applicationList);
+    }
+
+    @Transactional
+    public ResponseEntity delete(Long id) {
+        try {
+            applicationRepository.deleteById(id);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+        return ResponseEntity.ok(null);
+    }
 }
