@@ -62,4 +62,7 @@ public class CVService {
         List<CV> cvList = cvRepo.findAll();
         return ResponseEntity.ok().body(cvList);
     }
+
+
+
 }
